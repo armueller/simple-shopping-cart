@@ -21,7 +21,7 @@ class Product {
      * @param {number} page 
      */
     static async find(limit, page) {
-        if (!limit || limit < 0) {
+        if (!limit || limit < 0 || limit > 10) {
             limit = 5;
         }
         if (!page || page < 0) {
@@ -38,10 +38,29 @@ class Product {
      * @param {any} mongoObj 
      */
     constructor(mongoObj) {
+        /**
+         * @type {string}
+         */
         this._id = mongoObj._id;
+
+        /**
+         * @type {string}
+         */
         this.name = mongoObj.name;
+
+        /**
+         * @type {string}
+         */
         this.description = mongoObj.description;
+
+        /**
+         * @type {number}
+         */
         this.price = mongoObj.price;
+
+        /**
+         * @type {string}
+         */
         this.imgUrl = mongoObj.imgUrl;
     }
 }

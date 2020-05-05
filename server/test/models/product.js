@@ -126,6 +126,9 @@ describe('Product Model', () => {
             foundProducts = await Product.find(0, 0);
             expect(foundProducts.length).to.equal(5);
 
+            foundProducts = await Product.find(1000, 0);
+            expect(foundProducts.length).to.equal(5);
+
             dbHelper.getDb.restore();
         });
 
