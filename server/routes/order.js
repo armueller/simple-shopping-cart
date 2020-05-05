@@ -1,8 +1,8 @@
 const express = require('express');
-const { query, param } = require('express-validator');
+const { query, param, body } = require('express-validator');
 
 const { checkRequestValidity } = require('../middleware/checkRequestValidity');
-const productController = require('../controllers/product');
+const orderController = require('../controllers/order');
 
 const router = express.Router();
 
@@ -16,13 +16,22 @@ router.get('',
             .isInt({ min: 0 })
             .toInt()
             .withMessage('page must be greater than or equal to 0')
-    ], checkRequestValidity, productController.readProducts);
-router.get('/:productId',
+    ], checkRequestValidity, orderController.readOrders);
+
+router.get('/:orderId',
     [
-        param('productId')
+        param('orderId')
             .isString()
             .isLength({ min: 24, max: 24 })
-            .withMessage('productId is not valid'),
-    ], checkRequestValidity, productController.readProduct);
+            .withMessage('orderId is not valid'),
+    ], checkRequestValidity, orderController.readOrder);
+
+router.post('',
+    [
+        body('orderItems')
+            .isArray()
+            .isLength({ min: 1 })
+            .withMessage('order must have at least 1 item'),
+    ], checkRequestValidity, orderController.createOrder);
 
 module.exports = router;
