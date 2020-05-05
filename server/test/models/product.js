@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 
-const { expect } = require('chai');
+const { expect, assert } = require('chai');
 const sinon = require('sinon');
 const dbHelper = require('../../helpers/database');
 const { Product } = require('../../models/product');
@@ -13,11 +13,10 @@ describe('Product Model', () => {
 
             try {
                 await Product.findOneById('507f1f77bcf86cd799439011');
+                assert.fail();
             } catch (error) {
                 expect(error.message).to.equal('MongoDB not connected!');
             }
-
-            dbHelper.getDb.restore();
         });
 
         it('should throw an error if the product id does not exist', async () => {
@@ -30,11 +29,10 @@ describe('Product Model', () => {
 
             try {
                 await Product.findOneById('507f1f77bcf86cd799439011');
+                assert.fail();
             } catch (error) {
                 expect(error.message).to.equal('Product with id 507f1f77bcf86cd799439011 not found');
             }
-
-            dbHelper.getDb.restore();
         });
 
         it('should return the product object with the given id', async () => {
@@ -55,8 +53,12 @@ describe('Product Model', () => {
 
             const p = await Product.findOneById('507f1f77bcf86cd799439011');
             expect(p).to.eql(new Product(prodcut));
+        });
 
-            dbHelper.getDb.restore();
+        afterEach(function () {
+            if (dbHelper.getDb.restore) {
+                dbHelper.getDb.restore();
+            }
         });
     });
 
@@ -67,11 +69,10 @@ describe('Product Model', () => {
 
             try {
                 await Product.find(2, 0);
+                assert.fail();
             } catch (error) {
                 expect(error.message).to.equal('MongoDB not connected!');
             }
-
-            dbHelper.getDb.restore();
         });
 
         it('should return an empty list if no products are found', async () => {
@@ -91,8 +92,6 @@ describe('Product Model', () => {
             const products = await Product.find(2, 0);
             expect(products).to.be.an('Array');
             expect(products.length).to.equal(0);
-
-            dbHelper.getDb.restore();
         });
 
         it('should return 5 products if limit is not supplied or invalid', async () => {
@@ -128,8 +127,6 @@ describe('Product Model', () => {
 
             foundProducts = await Product.find(1000, 0);
             expect(foundProducts.length).to.equal(5);
-
-            dbHelper.getDb.restore();
         });
 
         it('should return the number of products given by limit at page 0 if page is not supplied or invalid', async () => {
@@ -168,8 +165,6 @@ describe('Product Model', () => {
                 const expectedName = `Product ${i}`;
                 expect(foundProducts[i].name).to.equal(expectedName);
             }
-
-            dbHelper.getDb.restore();
         });
 
         it('should return the number of products given by limit', async () => {
@@ -202,8 +197,6 @@ describe('Product Model', () => {
 
             foundProducts = await Product.find(4, 0);
             expect(foundProducts.length).to.equal(4);
-
-            dbHelper.getDb.restore();
         });
 
         it('should return the number of products given by limit indexed by page', async () => {
@@ -248,8 +241,12 @@ describe('Product Model', () => {
                 const expectedName = `Product ${limit*page + i}`;
                 expect(foundProducts[i].name).to.equal(expectedName);
             }
+        });
 
-            dbHelper.getDb.restore();
+        afterEach(function () {
+            if (dbHelper.getDb.restore) {
+                dbHelper.getDb.restore();
+            }
         });
     });
 });
