@@ -11,8 +11,7 @@ import { ScreenWidthService } from 'src/app/services/screen-width.service';
 export class DrawerComponent implements OnInit {
 
     constructor(private router: Router,
-                private sidenavService: SidenavService,
-                private screenWidthService: ScreenWidthService) { }
+                private sidenavService: SidenavService) { }
 
     ngOnInit(): void {
     }
