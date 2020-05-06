@@ -24,4 +24,11 @@ describe('DrawerComponent', () => {
     it('should create', () => {
         expect(component).toBeTruthy();
     });
+
+    it('should have a product and order nav links', () => {
+        const compiled: HTMLElement = fixture.nativeElement;
+
+        expect(compiled.querySelector('#products-link').textContent).toContain('Products');
+        expect(compiled.querySelector('#orders-link').textContent).toContain('Orders');
+    });
 });

@@ -1,15 +1,15 @@
 <mat-toolbar color="primary">
     <ng-container *ngIf="isMobile$ | async; else desktopHeader">
-        <button mat-icon-button (click)="onOpenSideNav()">
+        <button id="menu" mat-icon-button (click)="onOpenSideNav()">
             <mat-icon>menu</mat-icon>
         </button>
-        <h1 class="page-title">{{pageTitle$ | async}}</h1>
-        <button mat-icon-button (click)="onOpenCart()">
+        <h1 id="title" class="page-title">{{pageTitle$ | async}}</h1>
+        <button id="cart" mat-icon-button (click)="onOpenCart()">
             <mat-icon>shopping_cart</mat-icon>
         </button>
     </ng-container>
     <ng-template #desktopHeader>
-        <button mat-button (click)="onOpenPage('products')">Products</button>
-        <button mat-button (click)="onOpenPage('orders')">Orders</button>
+        <button id="products-link" mat-button (click)="onOpenPage('products')">Products</button>
+        <button id="orders-link" mat-button (click)="onOpenPage('orders')">Orders</button>
     </ng-template>
 </mat-toolbar>

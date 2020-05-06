@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SidenavService } from 'src/app/services/sidenav.service';
-import { ScreenWidthService } from 'src/app/services/screen-width.service';
 
 @Component({
     selector: 'app-drawer',
