@@ -1,0 +1,23 @@
+.order-description-container {
+    display: flex;
+    flex-flow: row;
+    flex-grow: 1;
+    max-width: 100%;
+}
+
+.order-date {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0 0.5rem;
+}
+
+.order-count {
+    white-space: nowrap;
+    margin: 0 0.5rem;
+}
+
+.order-total {
+    white-space: nowrap;
+    margin: 0 0.5rem;
+}

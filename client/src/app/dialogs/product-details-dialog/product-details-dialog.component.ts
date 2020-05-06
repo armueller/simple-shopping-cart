@@ -10,8 +10,9 @@ import { Product } from 'src/app/models/Product';
 export class ProductDetailsDialogComponent implements OnInit {
     quantity = 1;
 
-    constructor(@Inject(MAT_DIALOG_DATA) public product: Product,
-                public dialogRef: MatDialogRef<ProductDetailsDialogComponent>) { }
+    constructor(
+        @Inject(MAT_DIALOG_DATA) public product: Product,
+        public dialogRef: MatDialogRef<ProductDetailsDialogComponent>) { }
 
     ngOnInit(): void {
     }

@@ -1,0 +1,22 @@
+<div mat-dialog-title class="dialog-title-container">
+    <h1 mat-dialog-title class="dialog-title">Order: {{order._id}}</h1>
+    <button mat-icon-button class="dialog-close" (click)="onDismiss()">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+<div mat-dialog-content>
+    <p class="order-date">Placed on: {{order.createdAt | date:'medium'}}</p>
+    <p class="order-total">Total: {{order.total | currency:'USD':'symbol-narrow':'1.2'}}</p>
+    <p class="order-items-title">Ordered Items:</p>
+    <div class="order-items-container">
+        <mat-list role="list">
+            <mat-list-item role="listitem" *ngFor="let orderItem of order.items" style="height: fit-content; margin: 0.5rem 0;">
+                <div class="order-item-container">
+                    <img class="product-img" [src]="orderItem.product.imgUrl">
+                    <span class="product-name">{{orderItem.product.name}}</span>
+                    <span class="product-qty-price">{{orderItem.qty}} x {{orderItem.product.price | currency:'USD':'symbol-narrow':'1.2'}}</span>
+                </div>
+            </mat-list-item>
+        </mat-list>
+    </div>
+</div>

@@ -15,9 +15,10 @@ export class ProductsComponent implements OnInit {
     isMobile$: Observable<boolean>;
     products$: Observable<Product[]>;
 
-    constructor(private dialog: MatDialog,
-                private sidenavService: SidenavService,
-                private screenWidthService: ScreenWidthService) { }
+    constructor(
+        private dialog: MatDialog,
+        private sidenavService: SidenavService,
+        private screenWidthService: ScreenWidthService) { }
 
     ngOnInit(): void {
         this.isMobile$ = this.screenWidthService.isMobile$;

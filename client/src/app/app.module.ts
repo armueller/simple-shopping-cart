@@ -23,6 +23,8 @@ import { CartItemComponent } from './cart/cart-item/cart-item.component';
 import { AsyncButtonComponent } from './shared-ui/async-button/async-button.component';
 import { ProductListItemComponent } from './product/product-list-item/product-list-item.component';
 import { ProductDetailsDialogComponent } from './dialogs/product-details-dialog/product-details-dialog.component';
+import { OrderItemCountPipe } from './pipes/order-item-count.pipe';
+import { OrderDetailsDialogComponent } from './dialogs/order-details-dialog/order-details-dialog.component';
 
 @NgModule({
     entryComponents: [
@@ -38,7 +40,9 @@ import { ProductDetailsDialogComponent } from './dialogs/product-details-dialog/
         CartItemComponent,
         AsyncButtonComponent,
         ProductListItemComponent,
-        ProductDetailsDialogComponent
+        ProductDetailsDialogComponent,
+        OrderItemCountPipe,
+        OrderDetailsDialogComponent
     ],
     imports: [
         BrowserModule,

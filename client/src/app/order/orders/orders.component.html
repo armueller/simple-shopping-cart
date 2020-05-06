@@ -1,3 +1,13 @@
 <div class="fill-container">
-    <h1>Orders go here...</h1>
+    <div class="orders-list">
+        <mat-list role="list">
+            <mat-list-item role="listitem" *ngFor="let order of orders$ | async" (click)="onOpenOrderDetails(order)">
+                <div class="order-description-container">
+                    <span class="order-date">{{order.createdAt | date:'medium'}}</span>
+                    <span class="order-count">{{order | orderItemCount}}</span>
+                    <span class="order-total">{{order.total | currency:'USD':'symbol-narrow':'1.2'}}</span>
+                </div>
+            </mat-list-item>
+        </mat-list>
+    </div>
 </div>

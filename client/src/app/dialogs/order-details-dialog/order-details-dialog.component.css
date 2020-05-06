@@ -1,0 +1,62 @@
+.dialog-title-container {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    margin: -0.8rem -0.4rem 0.3rem -0.2rem;
+}
+
+.dialog-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+    margin-bottom: 0;
+}
+
+.dialog-close {
+    margin-left: auto;
+}
+
+.order-date {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.order-total {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.order-items-title {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.order-item-container {
+    display: flex;
+    flex-flow: row;
+    flex-grow: 1;
+    height: 8vh;
+    align-items: center;
+    width: 100%;
+}
+
+.product-img {
+    height: 100%;
+}
+
+.product-name {
+    font-size: smaller;
+    max-width: 50%;
+    font-weight: 300;
+    padding: 0 0.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.product-qty-price {
+    font-size: smaller;
+    margin-left: auto;
+    text-align: right;
+}
