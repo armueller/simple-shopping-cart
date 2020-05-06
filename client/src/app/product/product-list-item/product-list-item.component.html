@@ -1,1 +1,7 @@
-<p>product-list-item works!</p>
+<div class="product-container">
+    <div class="product" [ngStyle]="{'background-image': 'url(' + product.imgUrl + ')'}" (click)="onClick()">
+        <div class="product-info">
+            <span class="product-name">{{product.name}}</span>
+        </div>
+    </div>
+</div>

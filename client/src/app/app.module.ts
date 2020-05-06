@@ -10,32 +10,35 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 import { HeaderComponent } from './nav/header/header.component';
 import { DrawerComponent } from './nav/drawer/drawer.component';
 import { ProductsComponent } from './product/products/products.component';
-import { ProductDetailsComponent } from './product/product-details/product-details.component';
 import { OrdersComponent } from './order/orders/orders.component';
-import { OrderDetailsComponent } from './order/order-details/order-details.component';
 import { CartComponent } from './cart/cart/cart.component';
 import { CartItemComponent } from './cart/cart-item/cart-item.component';
 import { AsyncButtonComponent } from './shared-ui/async-button/async-button.component';
 import { ProductListItemComponent } from './product/product-list-item/product-list-item.component';
+import { ProductDetailsDialogComponent } from './dialogs/product-details-dialog/product-details-dialog.component';
 
 @NgModule({
+    entryComponents: [
+        ProductDetailsDialogComponent
+    ],
     declarations: [
         AppComponent,
         HeaderComponent,
         DrawerComponent,
         ProductsComponent,
-        ProductDetailsComponent,
         OrdersComponent,
-        OrderDetailsComponent,
         CartComponent,
         CartItemComponent,
         AsyncButtonComponent,
-        ProductListItemComponent
+        ProductListItemComponent,
+        ProductDetailsDialogComponent
     ],
     imports: [
         BrowserModule,
@@ -45,7 +48,9 @@ import { ProductListItemComponent } from './product/product-list-item/product-li
         MatSidenavModule,
         MatButtonModule,
         MatIconModule,
-        MatListModule
+        MatListModule,
+        MatCardModule,
+        MatDialogModule
     ],
     providers: [],
     bootstrap: [AppComponent]

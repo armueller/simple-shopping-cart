@@ -1,3 +1,6 @@
 <div class="fill-container">
-    <h1>Products go here...</h1>
+    <div class="product-list">
+        <app-product-list-item style="flex: 1;" [product]="product" (click)="onProductClicked(product)"
+            *ngFor="let product of products$ | async"></app-product-list-item>
+    </div>
 </div>

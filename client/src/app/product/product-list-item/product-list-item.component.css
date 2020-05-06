@@ -1,0 +1,43 @@
+.product-container {
+    display: flex;
+    justify-content: center;
+}
+
+.product {
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: cover;
+    background-color: #28313d;
+    border-radius: 4px 4px;
+    box-shadow: grey 0px 0px 2px 0px;
+    width: calc(50vw - 1rem);
+    min-width: 10rem;
+    max-width: 20rem;
+    height: calc(50vw - 1rem);
+    min-height: 10rem;
+    max-height: 20rem;
+    margin: 0.5rem;
+}
+
+.product-info {
+    position: absolute;
+    display: flex;
+    flex-flow: column;
+    font-size: 0.8rem;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    justify-content: flex-end;
+}
+
+.product-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: center;
+    padding: 0.8rem;
+    text-overflow: ellipsis;
+    background: #00000080;
+    color: white;
+    font-size: larger;
+}
