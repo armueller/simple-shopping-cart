@@ -52,7 +52,7 @@ export class ProductsComponent implements OnInit {
     }
 
     onProductClicked(product: Product) {
-        this.dialog.open(ProductDetailsDialogComponent, { data: product });
+        this.dialog.open(ProductDetailsDialogComponent, { data: product, autoFocus: false });
     }
 
 }

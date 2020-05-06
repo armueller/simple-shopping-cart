@@ -1,1 +1,24 @@
-<p>product-details-dialog works!</p>
+<div mat-dialog-title class="dialog-title-container">
+    <h1 mat-dialog-title class="dialog-title">{{product.name}}</h1>
+    <button mat-icon-button class="dialog-close" (click)="onDismiss()">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+<div mat-dialog-content>
+    <img [src]="product.imgUrl" style="width: 100%">
+    <p class="product-name">{{product.name}}</p>
+    <p class="product-description">{{product.description}}</p>
+    <p class="product-price">{{product.price | currency:'USD':'symbol-narrow':'1.2'}}</p>
+    <div class="add-to-cart-container">
+        <div class="qty-container">
+            <button mat-icon-button class="qty-remove" (click)="onRemove()">
+                <mat-icon color="primary">remove_circle_outline</mat-icon>
+            </button>
+            <span class="current-qty" >{{quantity}}</span>
+            <button mat-icon-button class="qty-add" (click)="onAdd()">
+                <mat-icon color="primary">add_circle_outline</mat-icon>
+            </button>
+        </div>
+        <button mat-stroked-button style="flex: 1;" color="accent" (click)="onAddToCart()">Add To Cart</button>
+    </div>
+</div>

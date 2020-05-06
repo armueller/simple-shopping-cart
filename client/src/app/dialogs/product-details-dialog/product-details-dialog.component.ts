@@ -8,6 +8,7 @@ import { Product } from 'src/app/models/Product';
     styleUrls: ['./product-details-dialog.component.css']
 })
 export class ProductDetailsDialogComponent implements OnInit {
+    quantity = 1;
 
     constructor(@Inject(MAT_DIALOG_DATA) public product: Product,
                 public dialogRef: MatDialogRef<ProductDetailsDialogComponent>) { }
@@ -15,4 +16,23 @@ export class ProductDetailsDialogComponent implements OnInit {
     ngOnInit(): void {
     }
 
+    onDismiss(): void {
+        this.dialogRef.close();
+    }
+
+    onRemove(): void {
+        this.quantity -= 1;
+        if (this.quantity < 1) {
+            this.quantity = 1;
+        }
+    }
+
+    onAdd(): void {
+        this.quantity += 1;
+    }
+
+    onAddToCart(): void {
+        console.log('Add to cart!');
+        this.dialogRef.close();
+    }
 }

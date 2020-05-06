@@ -1,0 +1,57 @@
+.dialog-title-container {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    margin: -0.8rem -0.4rem 0.3rem -0.2rem;
+}
+
+.dialog-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+    margin-bottom: 0;
+}
+
+.dialog-close {
+
+}
+
+.product-name {
+    font-weight: 600;
+}
+
+.product-description {
+    font-weight: 300;
+}
+
+.product-price {
+    font-weight: 400;
+    font-size: 1.2rem;
+}
+
+.add-to-cart-container {
+    display: flex;
+    flex-flow: row;
+}
+
+.qty-container {
+    display: flex;
+    flex-flow: row;
+    margin: 0 0.5rem;
+    align-items: center;
+}
+
+.qty-remove {
+
+}
+
+.current-qty {
+    font-size: large;
+    padding: 0 0.4rem;
+    font-weight: 600;
+}
+
+.qty-add {
+
+}
