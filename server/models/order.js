@@ -30,7 +30,7 @@ class Order {
         }
         const ordersCollection = dbHelper.getDb('AUAssignmentDB').collection('Orders');
         const skipNum = limit * page;
-        const orders = await ordersCollection.find({}).skip(skipNum).limit(limit).toArray();
+        const orders = await ordersCollection.find({}).sort({ createdAt: -1 }).skip(skipNum).limit(limit).toArray();
         return orders.map((mongoObj) => new Order(mongoObj));
     }
 
@@ -71,8 +71,16 @@ class Order {
             total: orderTotal,
         };
 
-        await ordersCollection.insertOne(orderObj);
-        return orderTimestamp;
+        const result = await ordersCollection.insertOne(orderObj);
+        if (result.insertedId) {
+            return {
+                _id: result.insertedId,
+                ...orderObj
+            };
+        } else {
+            console.log(result);
+            throw new Error('Something went wrong while trying to save order.');
+        }
     }
 
     /**

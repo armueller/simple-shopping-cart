@@ -225,7 +225,7 @@ describe('Order Model', () => {
             dbHelper.getDb.throws(new Error('MongoDB not connected!'));
 
             try {
-                await Order.saveNew([{productId: '507f1f77bcf86cd799439010', qty: 1}]);
+                await Order.saveNew([{ productId: '507f1f77bcf86cd799439010', qty: 1 }]);
                 assert.fail();
             } catch (error) {
                 expect(error.message).to.equal('MongoDB not connected!');
@@ -294,10 +294,10 @@ describe('Order Model', () => {
             }
         });
 
-        it('should call insertOne with order object and return the time the order was placed/saved', async () => {
+        it('should call insertOne with order object and return the order object', async () => {
             sinon.stub(dbHelper, 'getDb');
             const collectionMock = {
-                insertOne: async () => { }
+                insertOne: async () => ({ insertedId: '507f1f77bcf86cd79943901a' })
             };
             dbHelper.getDb.returns({
                 collection: () => collectionMock
@@ -338,8 +338,7 @@ describe('Order Model', () => {
                 items.push(item);
             }
 
-            const orderTime = await Order.saveNew(items);
-            expect(orderTime).to.equal(1588703588521);
+            const order = await Order.saveNew(items);
             expect(insertOneMockSpy.calledOnce).to.be.true;
             expect(insertOneMockSpy.getCall(0).args[0]).to.eql({
                 createdAt: 1588703588521,
@@ -377,6 +376,10 @@ describe('Order Model', () => {
                 ],
                 total: (1 * 2.99) + (2 * 5.99) + (3 * 1.99)
             });
+            expect(order._id).to.equal('507f1f77bcf86cd79943901a');
+            expect(order.createdAt).to.equal(1588703588521);
+            expect(order.items.length).to.equal(3);
+            expect(order.total).to.equal((1 * 2.99) + (2 * 5.99) + (3 * 1.99));
         });
 
         afterEach(function () {
