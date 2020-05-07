@@ -3,4 +3,8 @@
         <app-product-list-item style="flex: 1;" [product]="product" (click)="onProductClicked(product)"
             *ngFor="let product of products$ | async"></app-product-list-item>
     </div>
+    <div *ngIf="isLoading$ | async">
+        <mat-progress-spinner mode="indeterminate" diameter=75 style="margin: 1rem auto;">
+        </mat-progress-spinner>
+    </div>
 </div>

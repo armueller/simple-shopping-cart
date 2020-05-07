@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +16,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 import { HeaderComponent } from './nav/header/header.component';
@@ -31,9 +34,6 @@ import { OrderDetailsDialogComponent } from './dialogs/order-details-dialog/orde
 import { OrderTotalPipe } from './pipes/order-total.pipe';
 
 @NgModule({
-    entryComponents: [
-        ProductDetailsDialogComponent
-    ],
     declarations: [
         AppComponent,
         HeaderComponent,
@@ -53,6 +53,7 @@ import { OrderTotalPipe } from './pipes/order-total.pipe';
         BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,
+        HttpClientModule,
         StoreModule.forRoot(reducers),
         MatToolbarModule,
         MatSidenavModule,
@@ -60,7 +61,9 @@ import { OrderTotalPipe } from './pipes/order-total.pipe';
         MatIconModule,
         MatListModule,
         MatCardModule,
-        MatDialogModule
+        MatDialogModule,
+        MatSnackBarModule,
+        MatProgressSpinnerModule
     ],
     providers: [],
     bootstrap: [AppComponent]

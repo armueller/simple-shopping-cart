@@ -16,4 +16,8 @@
     <ng-template #noOrders>
         <h1 class="no-orders-msg">You have not ordered anything!</h1>
     </ng-template>
+    <div *ngIf="isLoading$ | async">
+        <mat-progress-spinner mode="indeterminate" diameter=75 style="margin: 1rem auto;">
+        </mat-progress-spinner>
+    </div>
 </div>

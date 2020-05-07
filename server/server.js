@@ -23,7 +23,7 @@ app.use((req, res, next) => {
 });
 
 // Set routes
-app.use('/order', orderRoutes);
+app.use('/orders', orderRoutes);
 app.use('/products', productRoutes);
 
 app.use(async (error, req, res, next) => {
