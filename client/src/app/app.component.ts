@@ -11,8 +11,9 @@ import { MatSidenav } from '@angular/material/sidenav';
 export class AppComponent implements AfterViewInit {
     @ViewChild('sidenav') public sidenav: MatSidenav;
 
-    constructor(private sidenavService: SidenavService,
-                private screenWidthService: ScreenWidthService) {}
+    constructor(
+        private sidenavService: SidenavService,
+        private screenWidthService: ScreenWidthService) { }
 
     @HostListener('window:resize', ['$event'])
     onResize(event) {
