@@ -11,7 +11,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
     providedIn: 'root'
 })
 export class ProductsApiService {
-    readonly productEndpoint = 'http://localhost:3000/products';
+    readonly productEndpoint = 'http://0.0.0.0:3000/products';
     readonly requestLimit = 5;
 
     loadingProducts$ = new BehaviorSubject<boolean>(false);

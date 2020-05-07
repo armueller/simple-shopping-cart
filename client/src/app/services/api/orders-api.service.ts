@@ -15,7 +15,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
     providedIn: 'root'
 })
 export class OrdersApiService {
-    readonly ordersEndpoint = 'http://localhost:3000/orders';
+    readonly ordersEndpoint = 'http://0.0.0.0:3000/orders';
     readonly requestLimit = 5;
 
     loadingOrders$ = new BehaviorSubject<boolean>(false);
