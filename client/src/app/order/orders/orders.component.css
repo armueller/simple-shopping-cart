@@ -1,3 +1,12 @@
+.scroll {
+    overflow: scroll;
+}
+
+.orders-list {
+    display: flex;
+    flex-flow: column;
+}
+
 .order-description-container {
     display: flex;
     flex-flow: row;

@@ -31,12 +31,12 @@ export class ProductsComponent implements OnInit, AfterViewInit, OnDestroy {
         private snackBar: MatSnackBar,
         private sidenavService: SidenavService,
         private screenWidthService: ScreenWidthService,
-        private productApiService: ProductsApiService,
+        private productsApiService: ProductsApiService,
         private productStore: Store<{ productsState: State }>) { }
 
     ngOnInit(): void {
         this.subscriptions = new Subscription();
-        this.isLoading$ = this.productApiService.loadingProducts$;
+        this.isLoading$ = this.productsApiService.loadingProducts$;
         this.isMobile$ = this.screenWidthService.isMobile$;
         this.sidenavService.setPageTitle('Products');
 
@@ -44,7 +44,7 @@ export class ProductsComponent implements OnInit, AfterViewInit, OnDestroy {
             map(store => store.products)
         );
 
-        this.subscriptions.add(this.productApiService.loadingError$.subscribe((error) => {
+        this.subscriptions.add(this.productsApiService.loadingError$.subscribe((error) => {
             this.showError(error);
         }));
     }
@@ -61,15 +61,15 @@ export class ProductsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private async loadMore() {
-        while (this.productsListElement.nativeElement.offsetHeight === 0) {
-            await this.wait(10);
-            console.log('waiting...');
-        }
+        // while (this.productsListElement.nativeElement.offsetHeight === 0) {
+        //     await this.wait(10);
+        //     console.log('waiting...');
+        // }
         let productContainerHeight = this.productsContainerElement.nativeElement.offsetHeight;
         let productListHeight = this.productsListElement.nativeElement.offsetHeight;
         let isOverflowing = productListHeight > productContainerHeight;
-        while (!isOverflowing && this.productApiService.canLoadMore()) {
-            await this.productApiService.getProducts();
+        while (!isOverflowing && this.productsApiService.canLoadMore()) {
+            await this.productsApiService.getProducts();
             productContainerHeight = this.productsContainerElement.nativeElement.offsetHeight;
             productListHeight = this.productsListElement.nativeElement.offsetHeight;
             isOverflowing = productListHeight > productContainerHeight;
@@ -87,14 +87,8 @@ export class ProductsComponent implements OnInit, AfterViewInit, OnDestroy {
     @HostListener('window:scroll', ['$event'])
     onScroll(event) {
         if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
-            this.productApiService.getProducts();
+            this.productsApiService.getProducts();
         }
-    }
-
-    isOverflown(element) {
-        const isOverflown = element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
-        console.log(isOverflown);
-        return isOverflown;
     }
 
     onProductClicked(product: Product) {

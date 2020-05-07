@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { SidenavService } from 'src/app/services/sidenav.service';
 import { ScreenWidthService } from 'src/app/services/screen-width.service';
-import { Observable, of, BehaviorSubject, Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Order } from 'src/app/models/Order';
 import { MatDialog } from '@angular/material/dialog';
 import { OrderDetailsDialogComponent } from 'src/app/dialogs/order-details-dialog/order-details-dialog.component';
@@ -17,11 +17,14 @@ import { OrdersApiService } from 'src/app/services/api/orders-api.service';
     templateUrl: './orders.component.html',
     styleUrls: ['./orders.component.css']
 })
-export class OrdersComponent implements OnInit, OnDestroy {
+export class OrdersComponent implements OnInit, AfterViewInit, OnDestroy {
     subscriptions: Subscription;
     isLoading$: Observable<boolean>;
     isMobile$: Observable<boolean>;
     orders$: Observable<Order[]>;
+
+    @ViewChild('ordersContainer') ordersContainerElement: ElementRef;
+    @ViewChild('ordersList') ordersListElement: ElementRef;
 
     constructor(
         private dialog: MatDialog,
@@ -51,6 +54,37 @@ export class OrdersComponent implements OnInit, OnDestroy {
         this.snackBar.open('Something went wrong while loading orders! Please try again later.', 'Dismiss', {
             duration: 2000,
         });
+    }
+
+    ngAfterViewInit() {
+        this.loadMore();
+    }
+
+    private async loadMore() {
+        let ordersContainerHeight = this.ordersContainerElement.nativeElement.offsetHeight;
+        let ordersListHeight = this.ordersListElement.nativeElement.offsetHeight;
+        let isOverflowing = ordersListHeight > ordersContainerHeight;
+        while (!isOverflowing && this.ordersApiService.canLoadMore()) {
+            await this.ordersApiService.getOrders();
+            ordersContainerHeight = this.ordersContainerElement.nativeElement.offsetHeight;
+            ordersListHeight = this.ordersListElement.nativeElement.offsetHeight;
+            isOverflowing = ordersListHeight > ordersContainerHeight;
+        }
+    }
+
+    private wait(ms: number): Promise<void> {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve();
+            }, ms);
+        });
+    }
+
+    @HostListener('window:scroll', ['$event'])
+    onScroll(event) {
+        if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
+            this.ordersApiService.getOrders();
+        }
     }
 
     onOpenOrderDetails(order: Order): void {

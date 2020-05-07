@@ -12,7 +12,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 })
 export class ProductsApiService {
     readonly productEndpoint = 'http://localhost:3000/products';
-    readonly requestLimit = 1;
+    readonly requestLimit = 5;
 
     loadingProducts$ = new BehaviorSubject<boolean>(false);
     loadingError$ = new Subject<HttpErrorResponse>();
@@ -24,7 +24,7 @@ export class ProductsApiService {
         private http: HttpClient,
         private productStore: Store<{ productsState: State }>) {
 
-        this.getProducts();
+        // this.getProducts();
     }
 
     async getProducts() {
