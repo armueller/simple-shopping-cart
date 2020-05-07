@@ -5,6 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './store/app.reducer';
+
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
@@ -48,6 +51,7 @@ import { OrderDetailsDialogComponent } from './dialogs/order-details-dialog/orde
         BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,
+        StoreModule.forRoot(reducers),
         MatToolbarModule,
         MatSidenavModule,
         MatButtonModule,
