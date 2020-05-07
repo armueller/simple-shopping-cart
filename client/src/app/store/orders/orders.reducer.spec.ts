@@ -4,23 +4,6 @@ import { Order } from 'src/app/models/Order';
 
 const mockOrders: Order[] = [
     {
-        _id: '5eacc0d257d570ddacde1933',
-        createdAt: new Date('2020-05-01T13:18:00'),
-        items: [
-            {
-                product: {
-                    _id: '5eacc1de57d570ddacde193f',
-                    name: '18-Volt ONE+ Cordless 1/2 in. Hammer Drill/Driver (Tool Only) with Handle',
-                    description: '600 in./lbs. torque to power through the toughest applications',
-                    price: 69,
-                    imgUrl: 'https://images.homedepot-static.com/productImages/9658de57-408c-4741-87c4-d6faad7f844f/svn/ryobi-hammer-drills-p214-64_1000.jpg'
-                },
-                qty: 5
-            }
-        ],
-        total: 345,
-    },
-    {
         _id: '5eacc0d257d570ddacde193c',
         createdAt: new Date('2020-04-17T18:24:00'),
         items: [
@@ -46,7 +29,24 @@ const mockOrders: Order[] = [
             }
         ],
         total: 798.94,
-    }
+    },
+    {
+        _id: '5eacc0d257d570ddacde1933',
+        createdAt: new Date('2020-05-01T13:18:00'),
+        items: [
+            {
+                product: {
+                    _id: '5eacc1de57d570ddacde193f',
+                    name: '18-Volt ONE+ Cordless 1/2 in. Hammer Drill/Driver (Tool Only) with Handle',
+                    description: '600 in./lbs. torque to power through the toughest applications',
+                    price: 69,
+                    imgUrl: 'https://images.homedepot-static.com/productImages/9658de57-408c-4741-87c4-d6faad7f844f/svn/ryobi-hammer-drills-p214-64_1000.jpg'
+                },
+                qty: 5
+            }
+        ],
+        total: 345,
+    },
 ];
 
 describe('Order Reducer', () => {
@@ -57,14 +57,12 @@ describe('Order Reducer', () => {
         expect(currentState).toBe(intialState);
     });
 
-    it('should add orders with AddOrders action', () => {
+    it('should add orders in decending order by createdAt with AddOrders action', () => {
         const action = new fromActions.AddOrders(mockOrders);
         const currentState = fromOrders.ordersReducer(undefined, action);
 
         expect(currentState.orders.length).toEqual(mockOrders.length);
-        for (let i = 0; i < mockOrders.length; i++) {
-            expect(currentState.orders[i]).toBe(mockOrders[i]);
-        }
+        expect(currentState.orders[0].createdAt.getTime()).toBeGreaterThan(currentState.orders[1].createdAt.getTime());
     });
 
     it('should clear all orders with Clear action', () => {

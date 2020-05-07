@@ -2,7 +2,7 @@ import { Action } from '@ngrx/store';
 import { Order } from 'src/app/models/Order';
 
 export const ADD_ORDERS = 'ADD_ORDERS';
-export const CLEAR = 'CLEAR';
+export const CLEAR_ORDERS = 'CLEAR_ORDERS';
 
 export type Actions =
     AddOrders
@@ -15,5 +15,5 @@ export class AddOrders implements Action {
 }
 
 export class Clear implements Action {
-    readonly type = CLEAR;
+    readonly type = CLEAR_ORDERS;
 }

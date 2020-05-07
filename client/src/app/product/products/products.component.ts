@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SidenavService } from 'src/app/services/sidenav.service';
 import { ScreenWidthService } from 'src/app/services/screen-width.service';
-import { Observable, of, BehaviorSubject } from 'rxjs';
+import { Observable, of, BehaviorSubject, Subscription } from 'rxjs';
 import { Product } from 'src/app/models/Product';
 import { MatDialog } from '@angular/material/dialog';
 import { ProductDetailsDialogComponent } from 'src/app/dialogs/product-details-dialog/product-details-dialog.component';
@@ -17,8 +17,9 @@ import { HttpErrorResponse } from '@angular/common/http';
     templateUrl: './products.component.html',
     styleUrls: ['./products.component.css']
 })
-export class ProductsComponent implements OnInit {
-    isLoading$: BehaviorSubject<boolean>;
+export class ProductsComponent implements OnInit, OnDestroy {
+    subscriptions: Subscription;
+    isLoading$: Observable<boolean>;
     isMobile$: Observable<boolean>;
     products$: Observable<Product[]>;
 
@@ -31,16 +32,18 @@ export class ProductsComponent implements OnInit {
         private productStore: Store<{ productsState: State }>) { }
 
     ngOnInit(): void {
-        this.isLoading$ = new BehaviorSubject(true);
+        this.subscriptions = new Subscription();
+        this.isLoading$ = this.productApiService.loadingProducts$;
         this.isMobile$ = this.screenWidthService.isMobile$;
         this.sidenavService.setPageTitle('Products');
+
         this.products$ = this.productStore.select('productsState').pipe(
             map(store => store.products)
         );
 
-        this.productApiService.getProducts()
-            .then(() => this.isLoading$.next(false))
-            .catch((error) => this.showError(error));
+        this.subscriptions.add(this.productApiService.loadingError$.subscribe((error) => {
+            this.showError(error);
+        }));
     }
 
     private showError(error: HttpErrorResponse) {
@@ -54,4 +57,7 @@ export class ProductsComponent implements OnInit {
         this.dialog.open(ProductDetailsDialogComponent, { data: product, autoFocus: false });
     }
 
+    ngOnDestroy() {
+        this.subscriptions.unsubscribe();
+    }
 }

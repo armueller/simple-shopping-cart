@@ -26,7 +26,6 @@ import { ProductsComponent } from './product/products/products.component';
 import { OrdersComponent } from './order/orders/orders.component';
 import { CartComponent } from './cart/cart/cart.component';
 import { CartItemComponent } from './cart/cart-item/cart-item.component';
-import { AsyncButtonComponent } from './shared-ui/async-button/async-button.component';
 import { ProductListItemComponent } from './product/product-list-item/product-list-item.component';
 import { ProductDetailsDialogComponent } from './dialogs/product-details-dialog/product-details-dialog.component';
 import { OrderItemCountPipe } from './pipes/order-item-count.pipe';
@@ -42,7 +41,6 @@ import { OrderTotalPipe } from './pipes/order-total.pipe';
         OrdersComponent,
         CartComponent,
         CartItemComponent,
-        AsyncButtonComponent,
         ProductListItemComponent,
         ProductDetailsDialogComponent,
         OrderItemCountPipe,

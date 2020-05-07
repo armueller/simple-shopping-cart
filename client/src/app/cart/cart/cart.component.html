@@ -5,9 +5,17 @@
             </app-cart-item>
             <span class="cart-total">{{orderItems$ | async | orderTotal | currency:'USD':'symbol-narrow':'1.2'}}</span>
             <div class="horizontal-divider"></div>
-            <button mat-raised-button style="flex: 1;" color="accent" (click)="onCheckOut()">
-                Check Out
-            </button>
+            <div class="checkout-action-container">
+                <ng-container *ngIf="!(isLoading$ | async); else savingCart">
+                    <button mat-raised-button color="accent" (click)="onCheckOut()">
+                        Check Out
+                    </button>
+                </ng-container>
+                <ng-template #savingCart>
+                    <mat-progress-spinner mode="indeterminate" color="accent" diameter=36>
+                    </mat-progress-spinner>
+                </ng-template>
+            </div>
         </div>
     </ng-container>
     <ng-template #noItemsInCart>

@@ -23,7 +23,7 @@ export function cartReducer(state = initialState, action: fromActions.Actions): 
             return handleSubItemQty(state, action.payload.productId);
         case fromActions.REMOVE_ITEM:
             return handleRemoveItem(state, action.payload.productId);
-        case fromActions.CLEAR:
+        case fromActions.CLEAR_CART:
             return initialState;
         default:
             return state;

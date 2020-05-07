@@ -20,7 +20,7 @@ export function productsReducer(state = initialState, action: fromActions.Action
                 ...state,
                 products: state.products.concat(action.payload)
             };
-        case fromActions.CLEAR:
+        case fromActions.CLEAR_PRODUCTS:
             return initialState;
         default:
             return state;

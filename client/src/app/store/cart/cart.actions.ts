@@ -5,7 +5,7 @@ export const ADD_ITEM = 'ADD_ITEM';
 export const ADD_ITEM_QTY = 'ADD_ITEM_QTY';
 export const SUB_ITEM_QTY = 'SUB_ITEM_QTY';
 export const REMOVE_ITEM = 'REMOVE_ITEM';
-export const CLEAR = 'CLEAR';
+export const CLEAR_CART = 'CLEAR_CART';
 
 export type Actions =
     AddItem
@@ -39,5 +39,5 @@ export class RemoveItem implements Action {
 }
 
 export class Clear implements Action {
-    readonly type = CLEAR;
+    readonly type = CLEAR_CART;
 }

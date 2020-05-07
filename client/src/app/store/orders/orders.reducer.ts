@@ -16,11 +16,13 @@ export function ordersReducer(state = initialState, action: fromActions.Actions)
 
     switch (action.type) {
         case fromActions.ADD_ORDERS:
+            const newOrders = state.orders.concat(action.payload);
+            newOrders.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
             return {
                 ...state,
-                orders: state.orders.concat(action.payload)
+                orders: newOrders
             };
-        case fromActions.CLEAR:
+        case fromActions.CLEAR_ORDERS:
             return initialState;
         default:
             return state;

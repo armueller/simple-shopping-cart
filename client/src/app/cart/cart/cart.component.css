@@ -33,3 +33,9 @@
     background: lightgray;
     margin: 1rem auto;
 }
+
+.checkout-action-container {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+}

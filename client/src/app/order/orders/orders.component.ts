@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SidenavService } from 'src/app/services/sidenav.service';
 import { ScreenWidthService } from 'src/app/services/screen-width.service';
-import { Observable, of, BehaviorSubject } from 'rxjs';
+import { Observable, of, BehaviorSubject, Subscription } from 'rxjs';
 import { Order } from 'src/app/models/Order';
 import { MatDialog } from '@angular/material/dialog';
 import { OrderDetailsDialogComponent } from 'src/app/dialogs/order-details-dialog/order-details-dialog.component';
@@ -17,8 +17,9 @@ import { OrdersApiService } from 'src/app/services/api/orders-api.service';
     templateUrl: './orders.component.html',
     styleUrls: ['./orders.component.css']
 })
-export class OrdersComponent implements OnInit {
-    isLoading$: BehaviorSubject<boolean>;
+export class OrdersComponent implements OnInit, OnDestroy {
+    subscriptions: Subscription;
+    isLoading$: Observable<boolean>;
     isMobile$: Observable<boolean>;
     orders$: Observable<Order[]>;
 
@@ -28,20 +29,21 @@ export class OrdersComponent implements OnInit {
         private sidenavService: SidenavService,
         private screenWidthService: ScreenWidthService,
         private ordersApiService: OrdersApiService,
-        private ordersStore: Store<{ordersState: State}>) { }
+        private ordersStore: Store<{ ordersState: State }>) { }
 
     ngOnInit(): void {
-        this.isLoading$ = new BehaviorSubject(true);
+        this.subscriptions = new Subscription();
+        this.isLoading$ = this.ordersApiService.loadingOrders$;
         this.isMobile$ = this.screenWidthService.isMobile$;
         this.sidenavService.setPageTitle('Orders');
-        this.orders$ = of([]);
+
         this.orders$ = this.ordersStore.select('ordersState').pipe(
             map(state => state.orders)
         );
 
-        this.ordersApiService.getProducts()
-            .then(() => this.isLoading$.next(false))
-            .catch((error) => this.showError(error));
+        this.subscriptions.add(this.ordersApiService.loadingError$.subscribe((error) => {
+            this.showError(error);
+        }));
     }
 
     private showError(error: HttpErrorResponse) {
@@ -55,4 +57,7 @@ export class OrdersComponent implements OnInit {
         this.dialog.open(OrderDetailsDialogComponent, { data: order, autoFocus: false });
     }
 
+    ngOnDestroy() {
+        this.subscriptions.unsubscribe();
+    }
 }

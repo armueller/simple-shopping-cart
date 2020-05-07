@@ -5,7 +5,7 @@
     </button>
 </div>
 <div mat-dialog-content>
-    <img [src]="product.imgUrl" style="width: 100%">
+    <img [src]="product.imgUrl" style="width: 100%; max-width: 350px;">
     <p class="product-name">{{product.name}}</p>
     <p class="product-description">{{product.description}}</p>
     <p class="product-price">{{product.price | currency:'USD':'symbol-narrow':'1.2'}}</p>
