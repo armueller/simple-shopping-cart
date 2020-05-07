@@ -1,7 +1,7 @@
 <div class="fill-container">
-    <div style="display: flex; flex-flow: row">
-        <div style="display: flex; flex-flow: column">
-            <div class="product-list">
+    <div class="page-layout">
+        <div class="products-container" (scroll)="onScroll($event)" #productsContainer>
+            <div class="product-list" #productsList>
                 <app-product-list-item style="flex: 1;" [product]="product" (click)="onProductClicked(product)"
                     *ngFor="let product of products$ | async"></app-product-list-item>
             </div>

@@ -12,12 +12,13 @@ import { BehaviorSubject, Subject } from 'rxjs';
 })
 export class ProductsApiService {
     readonly productEndpoint = 'http://localhost:3000/products';
-    readonly requestLimit = 5;
+    readonly requestLimit = 1;
 
     loadingProducts$ = new BehaviorSubject<boolean>(false);
     loadingError$ = new Subject<HttpErrorResponse>();
 
-    currentPage = 0;
+    private nextPage = 0;
+    private lastPage = -1;
 
     constructor(
         private http: HttpClient,
@@ -27,17 +28,29 @@ export class ProductsApiService {
     }
 
     async getProducts() {
+        if (this.nextPage === this.lastPage) {
+            return;
+        }
+
         this.loadingProducts$.next(true);
-        let params = new HttpParams().set('page', this.currentPage.toString());
+        let params = new HttpParams().set('page', this.nextPage.toString());
         params = params.append('limit', this.requestLimit.toString());
 
         try {
             const products = await this.http.get<Product[]>(this.productEndpoint, { params }).toPromise();
+            this.lastPage = this.nextPage;
+            if (products.length > 0) {
+                this.nextPage += 1;
+            }
             this.productStore.dispatch(new AddProducts(products));
         } catch (error) {
             this.loadingError$.next(error);
         }
 
         this.loadingProducts$.next(false);
+    }
+
+    canLoadMore() {
+        return this.nextPage !== this.lastPage;
     }
 }
