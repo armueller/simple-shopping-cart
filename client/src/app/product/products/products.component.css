@@ -3,6 +3,23 @@
     flex-flow: row wrap;
 }
 
-.loading-spinner {
-    
+.cart-container {
+    display: flex;
+    flex-flow: column;
+    width: 65vw;
+    min-width: 275px;
+}
+
+.cart-title-container {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.horizontal-divider {
+    height: 1px;
+    width: 80%;
+    background: lightgray;
+    margin: 1rem auto;
 }

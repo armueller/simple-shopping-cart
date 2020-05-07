@@ -1,10 +1,23 @@
 <div class="fill-container">
-    <div class="product-list">
-        <app-product-list-item style="flex: 1;" [product]="product" (click)="onProductClicked(product)"
-            *ngFor="let product of products$ | async"></app-product-list-item>
-    </div>
-    <div *ngIf="isLoading$ | async">
-        <mat-progress-spinner mode="indeterminate" diameter=75 style="margin: 1rem auto;">
-        </mat-progress-spinner>
+    <div style="display: flex; flex-flow: row">
+        <div style="display: flex; flex-flow: column">
+            <div class="product-list">
+                <app-product-list-item style="flex: 1;" [product]="product" (click)="onProductClicked(product)"
+                    *ngFor="let product of products$ | async"></app-product-list-item>
+            </div>
+            <div *ngIf="isLoading$ | async">
+                <mat-progress-spinner mode="indeterminate" diameter=75 style="margin: 1rem auto;">
+                </mat-progress-spinner>
+            </div>
+        </div>
+        <ng-container *ngIf="!(isMobile$ | async)">
+            <div class="cart-container">
+                <div class="cart-title-container">
+                    <h1 style="margin-bottom: 0;">Cart</h1>
+                </div>
+                <div class="horizontal-divider"></div>
+                <app-cart></app-cart>
+            </div>
+        </ng-container>
     </div>
 </div>
