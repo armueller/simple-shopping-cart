@@ -1,0 +1,35 @@
+.cart-items-container {
+    display: flex;
+    flex-flow: column;
+}
+
+.no-items-container {
+    display: flex;
+    flex-flow: column;
+    margin: 1rem;
+    align-items: center;
+    text-align: center;
+}
+
+.no-items-msg {
+    font-size: x-large;
+}
+
+.products-msg {
+    font-size: large;
+    font-weight: 400;
+}
+
+.cart-total {
+    text-align: right;
+    padding: 1rem 1rem 0rem 1rem;
+    font-size: x-large;
+    font-weight: 300;
+}
+
+.horizontal-divider {
+    height: 1px;
+    width: 80%;
+    background: lightgray;
+    margin: 1rem auto;
+}

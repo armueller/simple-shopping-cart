@@ -76,7 +76,7 @@ describe('Cart Reducer', () => {
     });
 
     describe('AddItemQty Action', () => {
-        it('should add 1 to item quantity at index', () => {
+        it('should add 1 to item quantity with given productId', () => {
             let addItemAction = new fromActions.AddItem({
                 product: {
                     _id: '5eacc0d257d570ddacde193c',
@@ -101,18 +101,18 @@ describe('Cart Reducer', () => {
             });
             state = fromCart.cartReducer(state, addItemAction);
 
-            let addItemQtyAction = new fromActions.AddItemQty({ itemIdx: 0 });
+            let addItemQtyAction = new fromActions.AddItemQty({ productId: '5eacc0d257d570ddacde193c' });
             state = fromCart.cartReducer(state, addItemQtyAction);
             expect(state.orderItems[0].qty).toEqual(2);
             expect(state.orderItems[1].qty).toEqual(1);
 
-            addItemQtyAction = new fromActions.AddItemQty({ itemIdx: 1 });
+            addItemQtyAction = new fromActions.AddItemQty({ productId: '5eacc0d257d570ddacde193d' });
             state = fromCart.cartReducer(state, addItemQtyAction);
             expect(state.orderItems[0].qty).toEqual(2);
             expect(state.orderItems[1].qty).toEqual(2);
         });
 
-        it('should do nothing if index is out of bounds', () => {
+        it('should do nothing if productId is not in cart', () => {
             let addItemAction = new fromActions.AddItem({
                 product: {
                     _id: '5eacc0d257d570ddacde193c',
@@ -137,12 +137,7 @@ describe('Cart Reducer', () => {
             });
             state = fromCart.cartReducer(state, addItemAction);
 
-            let addItemQtyAction = new fromActions.AddItemQty({ itemIdx: -1 });
-            state = fromCart.cartReducer(state, addItemQtyAction);
-            expect(state.orderItems[0].qty).toEqual(1);
-            expect(state.orderItems[1].qty).toEqual(1);
-
-            addItemQtyAction = new fromActions.AddItemQty({ itemIdx: 10 });
+            let addItemQtyAction = new fromActions.AddItemQty({ productId: '5eacc0d257d570ddacde193f' });
             state = fromCart.cartReducer(state, addItemQtyAction);
             expect(state.orderItems[0].qty).toEqual(1);
             expect(state.orderItems[1].qty).toEqual(1);
@@ -150,7 +145,7 @@ describe('Cart Reducer', () => {
     });
 
     describe('SubItemQty Action', () => {
-        it('should subtract 1 from item quantity at index', () => {
+        it('should subtract 1 from item quantity with given productId', () => {
             let addItemAction = new fromActions.AddItem({
                 product: {
                     _id: '5eacc0d257d570ddacde193c',
@@ -175,18 +170,18 @@ describe('Cart Reducer', () => {
             });
             state = fromCart.cartReducer(state, addItemAction);
 
-            let subItemQtyAction = new fromActions.SubItemQty({ itemIdx: 0 });
+            let subItemQtyAction = new fromActions.SubItemQty({ productId: '5eacc0d257d570ddacde193c' });
             state = fromCart.cartReducer(state, subItemQtyAction);
             expect(state.orderItems[0].qty).toEqual(1);
             expect(state.orderItems[1].qty).toEqual(2);
 
-            subItemQtyAction = new fromActions.SubItemQty({ itemIdx: 1 });
+            subItemQtyAction = new fromActions.SubItemQty({ productId: '5eacc0d257d570ddacde193d' });
             state = fromCart.cartReducer(state, subItemQtyAction);
             expect(state.orderItems[0].qty).toEqual(1);
             expect(state.orderItems[1].qty).toEqual(1);
         });
 
-        it('should do nothing if index is out of bounds', () => {
+        it('should do nothing if productId is not in cart', () => {
             let addItemAction = new fromActions.AddItem({
                 product: {
                     _id: '5eacc0d257d570ddacde193c',
@@ -211,18 +206,13 @@ describe('Cart Reducer', () => {
             });
             state = fromCart.cartReducer(state, addItemAction);
 
-            let subItemQtyAction = new fromActions.SubItemQty({ itemIdx: -1 });
-            state = fromCart.cartReducer(state, subItemQtyAction);
-            expect(state.orderItems[0].qty).toEqual(2);
-            expect(state.orderItems[1].qty).toEqual(2);
-
-            subItemQtyAction = new fromActions.SubItemQty({ itemIdx: 10 });
+            let subItemQtyAction = new fromActions.SubItemQty({ productId: '5eacc0d257d570ddacde193f' });
             state = fromCart.cartReducer(state, subItemQtyAction);
             expect(state.orderItems[0].qty).toEqual(2);
             expect(state.orderItems[1].qty).toEqual(2);
         });
 
-        it('should remove item from cart at index if item quantity at index is 1', () => {
+        it('should remove item from cart with given productId if item quantity is 1', () => {
             let addItemAction = new fromActions.AddItem({
                 product: {
                     _id: '5eacc0d257d570ddacde193c',
@@ -247,7 +237,7 @@ describe('Cart Reducer', () => {
             });
             state = fromCart.cartReducer(state, addItemAction);
 
-            let subItemQtyAction = new fromActions.SubItemQty({ itemIdx: 0 });
+            let subItemQtyAction = new fromActions.SubItemQty({ productId: '5eacc0d257d570ddacde193c' });
             state = fromCart.cartReducer(state, subItemQtyAction);
             expect(state.orderItems.length).toEqual(1);
             expect(state.orderItems[0].qty).toEqual(2);
@@ -256,7 +246,7 @@ describe('Cart Reducer', () => {
     });
 
     describe('RemoveItem Action', () => {
-        it('should remove item from cart at index', () => {
+        it('should remove item from cart with given productId', () => {
             let addItemAction = new fromActions.AddItem({
                 product: {
                     _id: '5eacc0d257d570ddacde193c',
@@ -281,13 +271,13 @@ describe('Cart Reducer', () => {
             });
             state = fromCart.cartReducer(state, addItemAction);
 
-            let removeItemAction = new fromActions.RemoveItem({ itemIdx: 0 });
+            let removeItemAction = new fromActions.RemoveItem({ productId: '5eacc0d257d570ddacde193c' });
             state = fromCart.cartReducer(state, removeItemAction);
             expect(state.orderItems.length).toEqual(1);
             expect(state.orderItems[0].product._id).toEqual('5eacc0d257d570ddacde193d');
         });
 
-        it('should do nothing if index is out of bounds', () => {
+        it('should do nothing if productId is not in cart', () => {
             let addItemAction = new fromActions.AddItem({
                 product: {
                     _id: '5eacc0d257d570ddacde193c',
@@ -312,11 +302,7 @@ describe('Cart Reducer', () => {
             });
             state = fromCart.cartReducer(state, addItemAction);
 
-            let removeItemAction = new fromActions.RemoveItem({ itemIdx: -1 });
-            state = fromCart.cartReducer(state, removeItemAction);
-            expect(state.orderItems.length).toEqual(2);
-
-            removeItemAction = new fromActions.RemoveItem({ itemIdx: 10 });
+            let removeItemAction = new fromActions.RemoveItem({ productId: '5eacc0d257d570ddacde193f' });
             state = fromCart.cartReducer(state, removeItemAction);
             expect(state.orderItems.length).toEqual(2);
         });

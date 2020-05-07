@@ -18,11 +18,11 @@ export function cartReducer(state = initialState, action: fromActions.Actions): 
         case fromActions.ADD_ITEM:
             return handleAddItem(state, action.payload);
         case fromActions.ADD_ITEM_QTY:
-            return handleAddItemQty(state, action.payload.itemIdx);
+            return handleAddItemQty(state, action.payload.productId);
         case fromActions.SUB_ITEM_QTY:
-            return handleSubItemQty(state, action.payload.itemIdx);
+            return handleSubItemQty(state, action.payload.productId);
         case fromActions.REMOVE_ITEM:
-            return handleRemoveItem(state, action.payload.itemIdx);
+            return handleRemoveItem(state, action.payload.productId);
         case fromActions.CLEAR:
             return initialState;
         default:
@@ -50,12 +50,13 @@ function handleAddItem(state: State, newItem: OrderItem): State {
     return state;
 }
 
-function handleAddItemQty(state: State, itemIdx: number): State {
-    if (itemIdx >= 0 && itemIdx < state.orderItems.length) {
-        const newQty = state.orderItems[itemIdx].qty + 1;
+function handleAddItemQty(state: State, productId: string): State {
+    const orderItemIdx = state.orderItems.findIndex(item => item.product._id === productId);
+    if (orderItemIdx !== -1) {
+        const newQty = state.orderItems[orderItemIdx].qty + 1;
 
         const newOrderItems = [...state.orderItems];
-        newOrderItems[itemIdx] = new OrderItem(state.orderItems[itemIdx].product, newQty);
+        newOrderItems[orderItemIdx] = new OrderItem(state.orderItems[orderItemIdx].product, newQty);
         state = {
             ...state,
             orderItems: newOrderItems
@@ -64,12 +65,13 @@ function handleAddItemQty(state: State, itemIdx: number): State {
     return state;
 }
 
-function handleSubItemQty(state: State, itemIdx: number): State {
-    if (itemIdx >= 0 && itemIdx < state.orderItems.length) {
-        const newQty = state.orderItems[itemIdx].qty - 1;
+function handleSubItemQty(state: State, productId: string): State {
+    const orderItemIdx = state.orderItems.findIndex(item => item.product._id === productId);
+    if (orderItemIdx !== -1) {
+        const newQty = state.orderItems[orderItemIdx].qty - 1;
 
         const newOrderItems = [...state.orderItems];
-        newOrderItems[itemIdx] = new OrderItem(state.orderItems[itemIdx].product, newQty);
+        newOrderItems[orderItemIdx] = new OrderItem(state.orderItems[orderItemIdx].product, newQty);
         state = {
             ...state,
             orderItems: newOrderItems.filter(item => item.qty > 0)
@@ -78,14 +80,9 @@ function handleSubItemQty(state: State, itemIdx: number): State {
     return state;
 }
 
-function handleRemoveItem(state: State, itemIdx: number): State {
-    if (itemIdx >= 0 && itemIdx < state.orderItems.length) {
-        const newOrderItems = [...state.orderItems];
-        newOrderItems.splice(itemIdx, 1);
-        state = {
-            ...state,
-            orderItems: newOrderItems
-        };
-    }
-    return state;
+function handleRemoveItem(state: State, productId: string): State {
+    return {
+        ...state,
+        orderItems: state.orderItems.filter(item => item.product._id !== productId)
+    };
 }

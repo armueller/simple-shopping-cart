@@ -23,19 +23,19 @@ export class AddItem implements Action {
 export class AddItemQty implements Action {
     readonly type = ADD_ITEM_QTY;
 
-    constructor(public payload: { itemIdx: number }) { }
+    constructor(public payload: { productId: string }) { }
 }
 
 export class SubItemQty implements Action {
     readonly type = SUB_ITEM_QTY;
 
-    constructor(public payload: { itemIdx: number }) { }
+    constructor(public payload: { productId: string }) { }
 }
 
 export class RemoveItem implements Action {
     readonly type = REMOVE_ITEM;
 
-    constructor(public payload: { itemIdx: number }) { }
+    constructor(public payload: { productId: string }) { }
 }
 
 export class Clear implements Action {

@@ -29,6 +29,7 @@ export class HeaderComponent implements OnInit {
     }
 
     onOpenCart(): void {
+        this.sidenavService.closeSideNav();
         this.router.navigate(['/cart']);
     }
 

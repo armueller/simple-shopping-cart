@@ -28,6 +28,7 @@ import { ProductListItemComponent } from './product/product-list-item/product-li
 import { ProductDetailsDialogComponent } from './dialogs/product-details-dialog/product-details-dialog.component';
 import { OrderItemCountPipe } from './pipes/order-item-count.pipe';
 import { OrderDetailsDialogComponent } from './dialogs/order-details-dialog/order-details-dialog.component';
+import { OrderTotalPipe } from './pipes/order-total.pipe';
 
 @NgModule({
     entryComponents: [
@@ -45,7 +46,8 @@ import { OrderDetailsDialogComponent } from './dialogs/order-details-dialog/orde
         ProductListItemComponent,
         ProductDetailsDialogComponent,
         OrderItemCountPipe,
-        OrderDetailsDialogComponent
+        OrderDetailsDialogComponent,
+        OrderTotalPipe
     ],
     imports: [
         BrowserModule,

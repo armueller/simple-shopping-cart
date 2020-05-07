@@ -1,3 +1,14 @@
 <div class="fill-container">
-    <h1>Cart go here...</h1>
+    <div class="cart-items-container">
+        <app-cart-item style="flex: 1;" [orderItem]="orderItem" *ngFor="let orderItem of orderItems$ | async">
+        </app-cart-item>
+        <span class="cart-total">{{orderItems$ | async | orderTotal | currency:'USD':'symbol-narrow':'1.2'}}</span>
+        <div class="horizontal-divider"></div>
+        <button mat-raised-button style="flex: 1;" color="accent" (click)="onCheckOut()">Check Out</button>
+    </div>
+    <div class="no-items-container" *ngIf="(orderItems$ | async).length === 0">
+        <h1 class="no-items-msg">You have no items in your cart!</h1>
+        <h2 class="products-msg">Check out our products page to add products to your cart.</h2>
+        <button mat-stroked-button style="flex: 1;" color="accent" (click)="onNavToProducts()">Products Page</button>
+    </div>
 </div>

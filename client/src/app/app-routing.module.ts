@@ -14,7 +14,7 @@ const routes: Routes = [
         component: OrdersComponent,
     },
     { path: 'cart', component: CartComponent },
-    { path: '**', redirectTo: '/products' }
+    { path: '**', redirectTo: '/cart' }
 ];
 
 @NgModule({

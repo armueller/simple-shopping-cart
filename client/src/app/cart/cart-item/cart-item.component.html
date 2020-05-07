@@ -1,1 +1,17 @@
-<p>cart-item works!</p>
+<div class="order-item-container">
+    <img class="product-img" [src]="orderItem.product.imgUrl">
+    <div class="product-details-container">
+        <span class="product-name">{{orderItem.product.name}}</span>
+        <div class="qty-container">
+            <button mat-icon-button class="qty-remove" (click)="onSubtractQty()">
+                <mat-icon color="primary">remove_circle_outline</mat-icon>
+            </button>
+            <span class="current-qty">{{orderItem.qty}}</span>
+            <button mat-icon-button class="qty-add" (click)="onAddQty()">
+                <mat-icon color="primary">add_circle_outline</mat-icon>
+            </button>
+        </div>
+    </div>
+    <!-- <span class="product-qty-price">{{orderItem.qty}} x {{orderItem.product.price | currency:'USD':'symbol-narrow':'1.2'}}</span> -->
+
+</div>
