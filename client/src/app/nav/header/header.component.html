@@ -5,7 +5,12 @@
         </button>
         <h1 id="title" class="page-title">{{pageTitle$ | async}}</h1>
         <button id="cart" mat-icon-button (click)="onOpenCart()">
-            <mat-icon>shopping_cart</mat-icon>
+            <ng-container *ngIf="numItemsInCart$ | async as numItemsInCart; else noItemsInCart">
+                <mat-icon [matBadge]="numItemsInCart" matBadgeColor="accent">shopping_cart</mat-icon>
+            </ng-container>
+            <ng-template #noItemsInCart>
+                <mat-icon>shopping_cart</mat-icon>
+            </ng-template>
         </button>
     </ng-container>
     <ng-template #desktopHeader>

@@ -18,6 +18,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatBadgeModule } from '@angular/material/badge';
 
 
 import { HeaderComponent } from './nav/header/header.component';
@@ -61,7 +62,8 @@ import { OrderTotalPipe } from './pipes/order-total.pipe';
         MatCardModule,
         MatDialogModule,
         MatSnackBarModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        MatBadgeModule
     ],
     providers: [],
     bootstrap: [AppComponent]
