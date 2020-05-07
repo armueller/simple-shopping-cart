@@ -1,6 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Product } from 'src/app/models/Product';
+import { Store } from '@ngrx/store';
+import { State } from 'src/app/store/products/products.reducer';
+import { AddItem } from 'src/app/store/cart/cart.actions';
+import { OrderItem } from 'src/app/models/OrderItem';
 
 @Component({
     selector: 'app-product-details-dialog',
@@ -12,7 +16,8 @@ export class ProductDetailsDialogComponent implements OnInit {
 
     constructor(
         @Inject(MAT_DIALOG_DATA) public product: Product,
-        public dialogRef: MatDialogRef<ProductDetailsDialogComponent>) { }
+        public dialogRef: MatDialogRef<ProductDetailsDialogComponent>,
+        private productStore: Store<{productsState: State}>) { }
 
     ngOnInit(): void {
     }
@@ -33,7 +38,7 @@ export class ProductDetailsDialogComponent implements OnInit {
     }
 
     onAddToCart(): void {
-        console.log('Add to cart!');
+        this.productStore.dispatch(new AddItem(new OrderItem(this.product, this.quantity)));
         this.dialogRef.close();
     }
 }
